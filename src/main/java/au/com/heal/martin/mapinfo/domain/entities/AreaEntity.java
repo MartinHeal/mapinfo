@@ -1,6 +1,10 @@
-package au.com.heal.martin.mapinfo.domain;
+package au.com.heal.martin.mapinfo.domain.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -8,8 +12,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,26 +22,25 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "locations")
-public class LocationEntity {
+@Table(name = "areas")
+public class AreaEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "locations_id_seq")
-    private long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "areas_id_seq")
+    private Long id;
 
     private String name;
 
     private String description;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "locations_points_id", unique = true)
-    private LocationPointEntity point;
+    @OneToMany(mappedBy = "area", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default private List<AreaPointEntity> points = new ArrayList<>();
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -58,12 +60,13 @@ public class LocationEntity {
         this.description = description;
     }
 
-    public LocationPointEntity getPoint() {
-        return point;
+    @JsonManagedReference
+    public List<AreaPointEntity> getPoints() {
+        return points;
     }
 
-    public void setPoint(LocationPointEntity point) {
-        this.point = point;
+    public void setPoints(List<AreaPointEntity> points) {
+        this.points = points;
     }
 
     @Override
@@ -72,20 +75,20 @@ public class LocationEntity {
             return true;
         }
 
-        if (!(o instanceof LocationEntity)) {
+        if (!(o instanceof AreaEntity)) {
             return false;
         }
 
-        LocationEntity other = (LocationEntity) o;
+        AreaEntity other = (AreaEntity) o;
 
-        return this.id == other.id
+        return this.id.equals(other.id)
             && this.name.equals(other.name)
             && this.description.equals(other.description)
-            && this.point.equals(other.point);
+            && this.points.equals(other.points);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, point);
+        return Objects.hash(id, name, description, points);
     }
 }

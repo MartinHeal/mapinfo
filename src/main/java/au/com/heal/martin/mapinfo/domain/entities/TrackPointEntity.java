@@ -1,4 +1,4 @@
-package au.com.heal.martin.mapinfo.domain;
+package au.com.heal.martin.mapinfo.domain.entities;
 
 import java.util.Objects;
 
@@ -19,20 +19,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "areas_points")
-public class AreaPointEntity {
+@Table(name = "tracks_points")
+public class TrackPointEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "areas_points_id_seq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tracks_points_id_seq")
     private Long id;
 
-    private double latitude;
+    private Double latitude;
 
-    private double longitude;
+    private Double longitude;
 
     @ManyToOne
-    @JoinColumn(name = "areas_id")
-    private AreaEntity area;
+    @JoinColumn(name = "tracks_id")
+    private TrackEntity track;
 
     public Long getId() {
         return id;
@@ -42,29 +42,29 @@ public class AreaPointEntity {
         this.id = id;
     }
 
-    public double getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public double getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
     @JsonBackReference
-    public AreaEntity getArea() {
-        return area;
+    public TrackEntity getTrack() {
+        return track;
     }
 
-    public void setArea(AreaEntity area) {
-        this.area = area;
+    public void setTrack(TrackEntity track) {
+        this.track = track;
     }
 
     @Override
@@ -73,20 +73,20 @@ public class AreaPointEntity {
             return true;
         }
 
-        if (!(o instanceof AreaPointEntity)) {
+        if (!(o instanceof TrackPointEntity)) {
             return false;
         }
 
-        AreaPointEntity other = (AreaPointEntity) o;
+        TrackPointEntity other = (TrackPointEntity) o;
 
-        return this.id == other.id
-            && this.latitude == other.latitude
-            && this.longitude == other.longitude
-            && this.area == other.area;
+        return this.id.equals(other.id)
+            && this.latitude.equals(other.latitude)
+            && this.longitude.equals(other.longitude)
+            && this.track == other.track;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, latitude, longitude, area);
+        return Objects.hash(id, latitude, longitude, track);
     }
 }

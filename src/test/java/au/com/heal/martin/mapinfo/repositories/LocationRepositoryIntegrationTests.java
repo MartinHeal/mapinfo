@@ -10,8 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
 import au.com.heal.martin.mapinfo.TestDataUtil;
-import au.com.heal.martin.mapinfo.domain.LocationEntity;
-import au.com.heal.martin.mapinfo.domain.LocationPointEntity;
+import au.com.heal.martin.mapinfo.domain.entities.LocationEntity;
+import au.com.heal.martin.mapinfo.domain.entities.LocationPointEntity;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)

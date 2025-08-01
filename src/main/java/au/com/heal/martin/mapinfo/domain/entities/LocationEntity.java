@@ -1,10 +1,6 @@
-package au.com.heal.martin.mapinfo.domain;
+package au.com.heal.martin.mapinfo.domain.entities;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -12,7 +8,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,21 +19,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "areas")
-public class AreaEntity {
+@Table(name = "locations")
+public class LocationEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "areas_id_seq")
-    private long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "locations_id_seq")
+    private Long id;
 
     private String name;
 
     private String description;
 
-    @OneToMany(mappedBy = "area", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @Builder.Default private List<AreaPointEntity> points = new ArrayList<>();
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "locations_points_id", unique = true)
+    private LocationPointEntity point;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -60,13 +58,12 @@ public class AreaEntity {
         this.description = description;
     }
 
-    @JsonManagedReference
-    public List<AreaPointEntity> getPoints() {
-        return points;
+    public LocationPointEntity getPoint() {
+        return point;
     }
 
-    public void setPoints(List<AreaPointEntity> points) {
-        this.points = points;
+    public void setPoint(LocationPointEntity point) {
+        this.point = point;
     }
 
     @Override
@@ -75,20 +72,20 @@ public class AreaEntity {
             return true;
         }
 
-        if (!(o instanceof AreaEntity)) {
+        if (!(o instanceof LocationEntity)) {
             return false;
         }
 
-        AreaEntity other = (AreaEntity) o;
+        LocationEntity other = (LocationEntity) o;
 
-        return this.id == other.id
+        return this.id.equals(other.id)
             && this.name.equals(other.name)
             && this.description.equals(other.description)
-            && this.points.equals(other.points);
+            && this.point.equals(other.point);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, points);
+        return Objects.hash(id, name, description, point);
     }
 }

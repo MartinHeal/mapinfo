@@ -3,12 +3,12 @@ package au.com.heal.martin.mapinfo;
 import java.util.ArrayList;
 import java.util.List;
 
-import au.com.heal.martin.mapinfo.domain.AreaEntity;
-import au.com.heal.martin.mapinfo.domain.AreaPointEntity;
-import au.com.heal.martin.mapinfo.domain.LocationEntity;
-import au.com.heal.martin.mapinfo.domain.LocationPointEntity;
-import au.com.heal.martin.mapinfo.domain.TrackEntity;
-import au.com.heal.martin.mapinfo.domain.TrackPointEntity;
+import au.com.heal.martin.mapinfo.domain.entities.AreaEntity;
+import au.com.heal.martin.mapinfo.domain.entities.AreaPointEntity;
+import au.com.heal.martin.mapinfo.domain.entities.LocationEntity;
+import au.com.heal.martin.mapinfo.domain.entities.LocationPointEntity;
+import au.com.heal.martin.mapinfo.domain.entities.TrackEntity;
+import au.com.heal.martin.mapinfo.domain.entities.TrackPointEntity;
 
 public final class TestDataUtil {
     private TestDataUtil() {}

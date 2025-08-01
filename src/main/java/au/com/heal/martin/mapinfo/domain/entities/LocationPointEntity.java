@@ -1,4 +1,4 @@
-package au.com.heal.martin.mapinfo.domain;
+package au.com.heal.martin.mapinfo.domain.entities;
 
 import java.util.Objects;
 
@@ -22,9 +22,9 @@ public class LocationPointEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "locations_points_id_seq")
     private Long id;
 
-    private double latitude;
+    private Double latitude;
 
-    private double longitude;
+    private Double longitude;
 
     public Long getId() {
         return id;
@@ -34,19 +34,19 @@ public class LocationPointEntity {
         this.id = id;
     }
 
-    public double getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public double getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
@@ -62,9 +62,9 @@ public class LocationPointEntity {
 
         LocationPointEntity other = (LocationPointEntity) o;
 
-        return this.id == other.id
-            && this.latitude == other.latitude
-            && this.longitude == other.longitude;
+        return this.id.equals(other.id)
+            && this.latitude.equals(other.latitude)
+            && this.longitude.equals(other.longitude);
     }
 
     @Override

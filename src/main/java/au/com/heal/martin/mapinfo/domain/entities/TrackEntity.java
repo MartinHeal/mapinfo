@@ -1,4 +1,4 @@
-package au.com.heal.martin.mapinfo.domain;
+package au.com.heal.martin.mapinfo.domain.entities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,16 +27,16 @@ public class TrackEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tracks_id_seq")
-    private long id;
+    private Long id;
 
     private String name;
 
     private String description;
 
-    @OneToMany(mappedBy = "track", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "track", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default private List<TrackPointEntity> points = new ArrayList<>();
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -81,7 +81,7 @@ public class TrackEntity {
 
         TrackEntity other = (TrackEntity) o;
 
-        return this.id == other.id
+        return this.id.equals(other.id)
             && this.name.equals(other.name)
             && this.description.equals(other.description)
             && this.points.equals(other.points);

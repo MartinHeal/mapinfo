@@ -14,8 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 
 import au.com.heal.martin.mapinfo.TestDataUtil;
-import au.com.heal.martin.mapinfo.domain.AreaEntity;
-import au.com.heal.martin.mapinfo.domain.AreaPointEntity;
+import au.com.heal.martin.mapinfo.domain.entities.AreaEntity;
+import au.com.heal.martin.mapinfo.domain.entities.AreaPointEntity;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)

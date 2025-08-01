@@ -9,6 +9,6 @@ import org.springframework.test.annotation.DirtiesContext;
 class MapinfoApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void testThatContextLoads() {
 	}
 }
