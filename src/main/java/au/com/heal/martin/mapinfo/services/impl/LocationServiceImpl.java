@@ -17,6 +17,7 @@ import au.com.heal.martin.mapinfo.services.LocationService;
 
 @Service
 public class LocationServiceImpl implements LocationService {
+
     private LocationRepository locationRepository;
     private Mapper<LocationEntity, LocationDto> locationMapper;
 
@@ -53,7 +54,8 @@ public class LocationServiceImpl implements LocationService {
     public List<LocationDto> readAllLocations() {
         Iterable<LocationEntity> locations = locationRepository.findAll();
 
-        return StreamSupport.stream(locations.spliterator(), false).map(locationMapper::mapTo).collect(Collectors.toList());
+        return StreamSupport.stream(locations.spliterator(), false)
+            .map(locationMapper::mapTo).collect(Collectors.toList());
     }
 
     @Override
@@ -66,6 +68,7 @@ public class LocationServiceImpl implements LocationService {
     @Override
     public LocationDto updateFullLocation(Long id, LocationDto location) {
         location.setId(id);
+
         return save(location);
     }
 

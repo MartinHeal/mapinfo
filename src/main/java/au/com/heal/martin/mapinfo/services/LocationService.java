@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import au.com.heal.martin.mapinfo.domain.dto.LocationDto;
 
 public interface LocationService {
+
     LocationDto createLocation(LocationDto location);
 
     Optional<LocationDto> readOneLocation(Long id);

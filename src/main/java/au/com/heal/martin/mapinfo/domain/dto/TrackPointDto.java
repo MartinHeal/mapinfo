@@ -1,5 +1,6 @@
 package au.com.heal.martin.mapinfo.domain.dto;
 
+import au.com.heal.martin.mapinfo.domain.entities.TrackEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,13 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class LocationDto {
+public class TrackPointDto {
 
     private Long id;
 
-    private String name;
+    private Double latitude;
 
-    private String description;
+    private Double longitude;
 
-    private LocationPointDto point;
+    private TrackEntity track;
 }

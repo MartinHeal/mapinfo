@@ -1,5 +1,8 @@
 package au.com.heal.martin.mapinfo.domain.dto;
 
+import java.util.List;
+
+import au.com.heal.martin.mapinfo.domain.entities.TrackPointEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class LocationDto {
+public class TrackDto {
 
     private Long id;
 
@@ -17,5 +20,5 @@ public class LocationDto {
 
     private String description;
 
-    private LocationPointDto point;
+    List<TrackPointEntity> points;
 }
