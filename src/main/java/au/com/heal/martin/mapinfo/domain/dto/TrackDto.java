@@ -20,5 +20,5 @@ public class TrackDto {
 
     private String description;
 
-    List<TrackPointEntity> points;
+    private List<TrackPointEntity> points;
 }

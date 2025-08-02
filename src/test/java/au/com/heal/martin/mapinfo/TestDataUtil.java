@@ -146,7 +146,7 @@ public final class TestDataUtil {
     public static AreaEntity createTestArea1() {
         AreaEntity area = AreaEntity.builder()
             .name("Melbourne CBD")
-            .description("Melbourne CBD business district")
+            .description("Melbourne CBD business district.")
             .build();
 
         List<AreaPointEntity> points = new ArrayList<>();

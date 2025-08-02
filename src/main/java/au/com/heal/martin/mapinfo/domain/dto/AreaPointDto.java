@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TrackPointDto {
+public class AreaPointDto {
 
     private Long id;
 
@@ -17,5 +17,5 @@ public class TrackPointDto {
 
     private Double longitude;
 
-    private TrackDto track;
+    private AreaDto area;
 }
