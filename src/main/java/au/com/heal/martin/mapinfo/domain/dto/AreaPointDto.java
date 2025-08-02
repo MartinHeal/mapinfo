@@ -1,11 +1,13 @@
 package au.com.heal.martin.mapinfo.domain.dto;
 
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -18,4 +20,60 @@ public class AreaPointDto {
     private Double longitude;
 
     private AreaDto area;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    @JsonBackReference
+    public AreaDto getArea() {
+        return area;
+    }
+
+    public void setArea(AreaDto area) {
+        this.area = area;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+
+        if (!(o instanceof AreaPointDto)) {
+            return false;
+        }
+
+        AreaPointDto other = (AreaPointDto) o;
+
+        return this.id.equals(other.id)
+            && this.latitude.equals(other.latitude)
+            && this.longitude.equals(other.longitude)
+            && this.area == other.area;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, latitude, longitude, area);
+    }
 }
