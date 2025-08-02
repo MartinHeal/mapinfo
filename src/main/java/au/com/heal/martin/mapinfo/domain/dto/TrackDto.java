@@ -2,7 +2,6 @@ package au.com.heal.martin.mapinfo.domain.dto;
 
 import java.util.List;
 
-import au.com.heal.martin.mapinfo.domain.entities.TrackPointEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,5 +19,5 @@ public class TrackDto {
 
     private String description;
 
-    private List<TrackPointEntity> points;
+    private List<TrackPointDto> points;
 }

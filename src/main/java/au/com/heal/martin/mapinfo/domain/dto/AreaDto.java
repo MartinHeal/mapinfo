@@ -2,7 +2,6 @@ package au.com.heal.martin.mapinfo.domain.dto;
 
 import java.util.List;
 
-import au.com.heal.martin.mapinfo.domain.entities.AreaPointEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,5 +19,5 @@ public class AreaDto {
 
     private String description;
 
-    private List<AreaPointEntity> points;
+    private List<AreaPointDto> points;
 }
