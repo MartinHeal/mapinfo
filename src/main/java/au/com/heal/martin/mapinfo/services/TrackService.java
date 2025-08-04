@@ -16,7 +16,7 @@ public interface TrackService {
 
     List<TrackDto> readAllTracks();
 
-    Page<TrackDto> readAllTracks(Pageable Pageable);
+    Page<TrackDto> readAllTracks(Pageable pageable);
 
     TrackDto updateFullTrack(Long id, TrackDto track);
 

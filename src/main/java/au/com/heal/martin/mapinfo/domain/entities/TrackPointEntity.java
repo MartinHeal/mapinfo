@@ -82,11 +82,12 @@ public class TrackPointEntity {
         return this.id.equals(other.id)
             && this.latitude.equals(other.latitude)
             && this.longitude.equals(other.longitude)
-            && this.track == other.track;
+            && ((this.track == null && other.track == null)
+               || (this.track != null && this.track.equals(other.track)));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, latitude, longitude, track);
+        return Objects.hash(id, latitude, longitude);
     }
 }

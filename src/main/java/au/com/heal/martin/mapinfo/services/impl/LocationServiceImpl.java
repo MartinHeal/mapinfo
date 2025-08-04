@@ -2,7 +2,6 @@ package au.com.heal.martin.mapinfo.services.impl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.springframework.data.domain.Page;
@@ -43,11 +42,7 @@ public class LocationServiceImpl implements LocationService {
     public Optional<LocationDto> readOneLocation(Long id) {
         Optional<LocationEntity> foundLocation = locationRepository.findById(id);
 
-        Optional<LocationDto> locationDto = foundLocation.map(locationEntity -> {
-            return locationMapper.mapTo(locationEntity);
-        });
-
-        return locationDto;
+        return foundLocation.map(locationEntity -> locationMapper.mapTo(locationEntity));
     }
 
     @Override
@@ -55,12 +50,12 @@ public class LocationServiceImpl implements LocationService {
         Iterable<LocationEntity> locations = locationRepository.findAll();
 
         return StreamSupport.stream(locations.spliterator(), false)
-            .map(locationMapper::mapTo).collect(Collectors.toList());
+            .map(locationMapper::mapTo).toList();
     }
 
     @Override
-    public Page<LocationDto> readAllLocations(Pageable Pageable) {
-        Page<LocationEntity> locationEntities = locationRepository.findAll(Pageable);
+    public Page<LocationDto> readAllLocations(Pageable pageable) {
+        Page<LocationEntity> locationEntities = locationRepository.findAll(pageable);
         
         return locationEntities.map(locationMapper::mapTo);
     }
@@ -91,9 +86,8 @@ public class LocationServiceImpl implements LocationService {
 
         // The controller has already checked for the existance of the location.
         // If there is no saved location at this point then throw an exception.
-        return savedLocationDto.map(locationDto -> {
-            return locationDto;
-        }).orElseThrow(() -> new RuntimeException("Location does not exist!"));
+        return savedLocationDto.map(locationDto -> locationDto)
+            .orElseThrow(() -> new RuntimeException("Location does not exist!"));
     }
 
     @Override

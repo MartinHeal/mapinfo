@@ -5,8 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,7 @@ import au.com.heal.martin.mapinfo.domain.entities.AreaPointEntity;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class AreaRepositoryIntegrationTests {
+class AreaRepositoryIntegrationTests {
 
     private AreaRepository areaRepository;
 
@@ -29,7 +27,7 @@ public class AreaRepositoryIntegrationTests {
     }
 
     @Test
-    public void testThatAreaCanBeCreatedAndRetrieved() {
+    void testThatAreaCanBeCreatedAndRetrieved() {
         AreaEntity area = TestDataUtil.createTestArea1();
 
         areaRepository.save(area);
@@ -39,12 +37,11 @@ public class AreaRepositoryIntegrationTests {
 
         assertThat(result.get().getName()).isEqualTo(area.getName());
         assertThat(result.get().getDescription()).isEqualTo(area.getDescription());
-
-        assertThat(result.get().getPoints().equals(area.getPoints()));
+        assertThat(result.get().getPoints()).hasSize(area.getPoints().size());
     }
 
     @Test
-    public void testThatMultipleAreasCanBeCreatedAndRetrieved() {
+    void testThatMultipleAreasCanBeCreatedAndRetrieved() {
         AreaEntity area1 = TestDataUtil.createTestArea1();
         AreaEntity area2 = TestDataUtil.createTestArea2();
         AreaEntity area3 = TestDataUtil.createTestArea3();
@@ -55,12 +52,13 @@ public class AreaRepositoryIntegrationTests {
         Iterable<AreaEntity> result = areaRepository.findAll();
 
         assertThat(result).hasSize(3);
-        List<AreaEntity> resultAreas = StreamSupport.stream(result.spliterator(), false).collect(Collectors.toList());
-        assertThat(resultAreas.equals(List.of(area1, area2, area3)));
+
+        // Also need to check that the result contains the 3 areas.
+        // Look at the AreaEntity & AreaPointEntity equals() & hashCode().
     }
 
     @Test
-    public void testThatAreaCanBeUpdated() {
+    void testThatAreaCanBeUpdated() {
         AreaEntity area = TestDataUtil.createTestArea1();
 
         areaRepository.save(area);
@@ -68,11 +66,16 @@ public class AreaRepositoryIntegrationTests {
         area.setName("New Name");
         area.setDescription("New Description");
 
-        List<AreaPointEntity> newPoints = new ArrayList<>();
-        newPoints.add(TestDataUtil.createTestAreaPoint(-37.000000000, 144.000000000));
-        newPoints.add(TestDataUtil.createTestAreaPoint(-37.500000000, 144.000000000));
-        newPoints.add(TestDataUtil.createTestAreaPoint(-37.500000000, 144.500000000));
-        newPoints.add(TestDataUtil.createTestAreaPoint(-37.000000000, 144.500000000));
+        AreaPointEntity newAreaPoint1 = TestDataUtil.createTestAreaPoint(-37.000000000, 144.000000000);
+        newAreaPoint1.setArea(area);
+        AreaPointEntity newAreaPoint2 = TestDataUtil.createTestAreaPoint(-37.500000000, 144.000000000);
+        newAreaPoint2.setArea(area);
+        AreaPointEntity newAreaPoint3 = TestDataUtil.createTestAreaPoint(-37.500000000, 144.500000000);
+        newAreaPoint3.setArea(area);
+        AreaPointEntity newAreaPoint4 = TestDataUtil.createTestAreaPoint(-37.000000000, 144.500000000);
+        newAreaPoint4.setArea(area);
+
+        List<AreaPointEntity> newPoints = new ArrayList<>(List.of(newAreaPoint1, newAreaPoint2, newAreaPoint3, newAreaPoint4));
         area.setPoints(newPoints);
 
         areaRepository.save(area);
@@ -84,11 +87,14 @@ public class AreaRepositoryIntegrationTests {
         assertThat(result.get().getName()).isEqualTo(area.getName());
         assertThat(result.get().getDescription()).isEqualTo(area.getDescription());
 
-        assertThat(result.get().getPoints().equals(area.getPoints()));
+        assertThat(result.get().getPoints()).hasSize(area.getPoints().size());
+
+        // Also need to check that the result points contains the 4 new points.
+        // Look at the AreaEntity & AreaPointEntity equals() & hashCode().
     }
 
     @Test
-    public void testThatAreaCanBeDeleted() {
+    void testThatAreaCanBeDeleted() {
         AreaEntity area = TestDataUtil.createTestArea1();
 
         areaRepository.save(area);

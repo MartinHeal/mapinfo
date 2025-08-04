@@ -14,7 +14,7 @@ import au.com.heal.martin.mapinfo.domain.entities.AreaPointEntity;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class AreaPointRepositoryIntegrationTests {
+class AreaPointRepositoryIntegrationTests {
 
     private AreaPointRepository areaPointRepository;
 
@@ -24,7 +24,7 @@ public class AreaPointRepositoryIntegrationTests {
     }
 
     @Test
-    public void testThatPointCanBeCreatedAndRetrieved() {
+    void testThatPointCanBeCreatedAndRetrieved() {
         AreaPointEntity point = TestDataUtil.createTestAreaPoint(-37.814233512, 144.963138807);
 
         areaPointRepository.save(point);
@@ -37,7 +37,7 @@ public class AreaPointRepositoryIntegrationTests {
     }
 
     @Test
-    public void testThatMultiplePointsCanBeCreatedAndRetrieved() {
+    void testThatMultiplePointsCanBeCreatedAndRetrieved() {
         AreaPointEntity point1 = TestDataUtil.createTestAreaPoint(-37.820640807, 144.941401533);
         AreaPointEntity point2 = TestDataUtil.createTestAreaPoint(-37.821407644, 144.945846615);
         AreaPointEntity point3 = TestDataUtil.createTestAreaPoint(-37.813321828, 144.973760363);
@@ -47,12 +47,11 @@ public class AreaPointRepositoryIntegrationTests {
         areaPointRepository.save(point3);
         Iterable<AreaPointEntity> result = areaPointRepository.findAll();
 
-        assertThat(result).hasSize(3);
-        assertThat(result).containsExactly(point1, point2, point3);
+        assertThat(result).hasSize(3).containsExactly(point1, point2, point3);
     }
 
     @Test
-    public void testThatPointCanBeUpdated() {
+    void testThatPointCanBeUpdated() {
         AreaPointEntity point = TestDataUtil.createTestAreaPoint(-37.814233512, 144.963138807);
 
         areaPointRepository.save(point);
@@ -71,7 +70,7 @@ public class AreaPointRepositoryIntegrationTests {
     }
 
     @Test
-    public void testThatPointCanBeDeleted() {
+    void testThatPointCanBeDeleted() {
         AreaPointEntity point = TestDataUtil.createTestAreaPoint(-37.814233512, 144.963138807);
 
         areaPointRepository.save(point);

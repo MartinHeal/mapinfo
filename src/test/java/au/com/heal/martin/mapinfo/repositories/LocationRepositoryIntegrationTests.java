@@ -15,7 +15,7 @@ import au.com.heal.martin.mapinfo.domain.entities.LocationPointEntity;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class LocationRepositoryIntegrationTests {
+class LocationRepositoryIntegrationTests {
 
     private LocationRepository locationRepository;
 
@@ -25,7 +25,7 @@ public class LocationRepositoryIntegrationTests {
     }
 
     @Test
-    public void testThatLocationCanBeCreatedAndRetrieved() {
+    void testThatLocationCanBeCreatedAndRetrieved() {
         LocationEntity location = TestDataUtil.createTestLocation1();
 
         locationRepository.save(location);
@@ -40,7 +40,7 @@ public class LocationRepositoryIntegrationTests {
     }
 
     @Test
-    public void testThatMultipleLocationsCanBeCreatedAndRetrieved() {
+    void testThatMultipleLocationsCanBeCreatedAndRetrieved() {
         LocationEntity location1 = TestDataUtil.createTestLocation1();
         LocationEntity location2 = TestDataUtil.createTestLocation2();
         LocationEntity location3 = TestDataUtil.createTestLocation3();
@@ -50,12 +50,11 @@ public class LocationRepositoryIntegrationTests {
         locationRepository.save(location3);
         Iterable<LocationEntity> result = locationRepository.findAll();
 
-        assertThat(result).hasSize(3);
-        assertThat(result).containsExactly(location1, location2, location3);
+        assertThat(result).hasSize(3).containsExactly(location1, location2, location3);
     }
 
     @Test
-    public void testThatLocationCanBeUpdated() {
+    void testThatLocationCanBeUpdated() {
         LocationEntity location = TestDataUtil.createTestLocation1();
 
         locationRepository.save(location);
@@ -77,7 +76,7 @@ public class LocationRepositoryIntegrationTests {
     }
 
     @Test
-    public void testThatLocationCanBeDeleted() {
+    void testThatLocationCanBeDeleted() {
         LocationEntity location = TestDataUtil.createTestLocation1();
 
         locationRepository.save(location);

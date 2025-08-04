@@ -2,7 +2,6 @@ package au.com.heal.martin.mapinfo.services.impl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.springframework.data.domain.Page;
@@ -44,11 +43,7 @@ public class TrackServiceImpl implements TrackService {
     public Optional<TrackDto> readOneTrack(Long id) {
         Optional<TrackEntity> foundTrack = trackRepository.findById(id);
 
-        Optional<TrackDto> trackDto = foundTrack.map(trackEntity -> {
-            return trackMapper.mapTo(trackEntity);
-        });
-
-        return trackDto;
+        return foundTrack.map(trackEntity -> trackMapper.mapTo(trackEntity));
     }
 
     @Override
@@ -56,12 +51,12 @@ public class TrackServiceImpl implements TrackService {
         Iterable<TrackEntity> tracks = trackRepository.findAll();
 
         return StreamSupport.stream(tracks.spliterator(), false)
-            .map(trackMapper::mapTo).collect(Collectors.toList());
+            .map(trackMapper::mapTo).toList();
     }
 
     @Override
-    public Page<TrackDto> readAllTracks(Pageable Pageable) {
-        Page<TrackEntity> trackEntities = trackRepository.findAll(Pageable);
+    public Page<TrackDto> readAllTracks(Pageable pageable) {
+        Page<TrackEntity> trackEntities = trackRepository.findAll(pageable);
         
         return trackEntities.map(trackMapper::mapTo);
     }
@@ -92,9 +87,8 @@ public class TrackServiceImpl implements TrackService {
 
         // The controller has already checked for the existance of the track.
         // If there is no saved track at this point then throw an exception.
-        return savedTrackDto.map(trackDto -> {
-            return trackDto;
-        }).orElseThrow(() -> new RuntimeException("Track does not exist!"));
+        return savedTrackDto.map(trackDto -> trackDto)
+            .orElseThrow(() -> new RuntimeException("Track does not exist!"));
     }
 
     @Override

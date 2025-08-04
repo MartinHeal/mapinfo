@@ -16,7 +16,7 @@ public interface LocationService {
 
     List<LocationDto> readAllLocations();
 
-    Page<LocationDto> readAllLocations(Pageable Pageable);
+    Page<LocationDto> readAllLocations(Pageable pageable);
 
     LocationDto updateFullLocation(Long id, LocationDto location);
 

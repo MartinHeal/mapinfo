@@ -34,7 +34,7 @@ public class AreaController {
     public ResponseEntity<AreaDto> createArea(@RequestBody AreaDto area) {
         log.info("Create area.");
 
-        return new ResponseEntity<AreaDto>(areaService.createArea(area), HttpStatus.CREATED);
+        return new ResponseEntity<>(areaService.createArea(area), HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/areas/{id}")
@@ -43,9 +43,7 @@ public class AreaController {
 
         Optional<AreaDto> foundArea = areaService.readOneArea(id);
 
-        return foundArea.map(areaDto -> {
-                return new ResponseEntity<>(areaDto, HttpStatus.OK);
-            })
+        return foundArea.map(areaDto -> new ResponseEntity<>(areaDto, HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 

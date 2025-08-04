@@ -2,7 +2,6 @@ package au.com.heal.martin.mapinfo.services.impl;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.springframework.data.domain.Page;
@@ -44,11 +43,7 @@ public class AreaServiceImpl implements AreaService {
     public Optional<AreaDto> readOneArea(Long id) {
         Optional<AreaEntity> foundArea = areaRepository.findById(id);
 
-        Optional<AreaDto> areaDto = foundArea.map(areaEntity -> {
-            return areaMapper.mapTo(areaEntity);
-        });
-
-        return areaDto;
+        return foundArea.map(areaEntity -> areaMapper.mapTo(areaEntity));
     }
 
     @Override
@@ -56,12 +51,12 @@ public class AreaServiceImpl implements AreaService {
         Iterable<AreaEntity> areas = areaRepository.findAll();
 
         return StreamSupport.stream(areas.spliterator(), false)
-            .map(areaMapper::mapTo).collect(Collectors.toList());
+            .map(areaMapper::mapTo).toList();
     }
 
     @Override
-    public Page<AreaDto> readAllAreas(Pageable Pageable) {
-        Page<AreaEntity> areaEntities = areaRepository.findAll(Pageable);
+    public Page<AreaDto> readAllAreas(Pageable pageable) {
+        Page<AreaEntity> areaEntities = areaRepository.findAll(pageable);
         
         return areaEntities.map(areaMapper::mapTo);
     }
@@ -92,9 +87,8 @@ public class AreaServiceImpl implements AreaService {
 
         // The controller has already checked for the existance of the area.
         // If there is no saved area at this point then throw an exception.
-        return savedAreaDto.map(areaDto -> {
-            return areaDto;
-        }).orElseThrow(() -> new RuntimeException("Area does not exist!"));
+        return savedAreaDto.map(areaDto -> areaDto)
+            .orElseThrow(() -> new RuntimeException("Area does not exist!"));
     }
 
     @Override

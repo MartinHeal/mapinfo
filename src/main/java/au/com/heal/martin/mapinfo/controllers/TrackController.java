@@ -34,7 +34,7 @@ public class TrackController {
     public ResponseEntity<TrackDto> createTrack(@RequestBody TrackDto track) {
         log.info("Create track.");
 
-        return new ResponseEntity<TrackDto>(trackService.createTrack(track), HttpStatus.CREATED);
+        return new ResponseEntity<>(trackService.createTrack(track), HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/tracks/{id}")
@@ -43,9 +43,7 @@ public class TrackController {
 
         Optional<TrackDto> foundTrack = trackService.readOneTrack(id);
 
-        return foundTrack.map(trackDto -> {
-                return new ResponseEntity<>(trackDto, HttpStatus.OK);
-            })
+        return foundTrack.map(trackDto -> new ResponseEntity<>(trackDto, HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 

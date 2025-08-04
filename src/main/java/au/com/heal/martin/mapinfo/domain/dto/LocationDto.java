@@ -66,7 +66,8 @@ public class LocationDto {
         return this.id.equals(other.id)
             && this.name.equals(other.name)
             && this.description.equals(other.description)
-            && this.point.equals(other.point);
+            && (this.point == null && other.point == null)
+               || ((this.point != null) && this.point.equals(other.point));
     }
 
     @Override

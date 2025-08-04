@@ -1,5 +1,6 @@
 package au.com.heal.martin.mapinfo.domain.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,7 +21,7 @@ public class AreaDto {
 
     private String description;
 
-    private List<AreaPointDto> points;
+    @Builder.Default private List<AreaPointDto> points = new ArrayList<>();
 
     public Long getId() {
         return id;

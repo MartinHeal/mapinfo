@@ -16,7 +16,7 @@ public interface AreaService {
 
     List<AreaDto> readAllAreas();
 
-    Page<AreaDto> readAllAreas(Pageable Pageable);
+    Page<AreaDto> readAllAreas(Pageable pageable);
 
     AreaDto updateFullArea(Long id, AreaDto area);
 

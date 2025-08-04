@@ -21,7 +21,7 @@ import au.com.heal.martin.mapinfo.services.TrackService;
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @AutoConfigureMockMvc
-public class TrackControllerIntegrationTests {
+class TrackControllerIntegrationTests {
 
     private MockMvc mockMvc;
     private TrackService trackService;
@@ -37,7 +37,7 @@ public class TrackControllerIntegrationTests {
     }
 
     @Test
-    public void testThatCreateTrackSuccessfullyReturnsHttpStatus201() throws Exception {
+    void testThatCreateTrackSuccessfullyReturnsHttpStatus201() throws Exception {
         TrackEntity trackEntity = TestDataUtil.createTestTrack1();
         trackEntity.setId(null);
         String trackJson = objectMapper.writeValueAsString(trackEntity);
@@ -52,7 +52,7 @@ public class TrackControllerIntegrationTests {
     }
 
     @Test
-    public void testThatCreateTrackSuccessfullyReturnsSavedTrack() throws Exception {
+    void testThatCreateTrackSuccessfullyReturnsSavedTrack() throws Exception {
         TrackEntity trackEntity = TestDataUtil.createTestTrack1();
         trackEntity.setId(null);
 
@@ -74,7 +74,7 @@ public class TrackControllerIntegrationTests {
     }
 
     @Test
-    public void testThatReadAllTracksReturnsHttpStatus200() throws Exception {
+    void testThatReadAllTracksReturnsHttpStatus200() throws Exception {
         mockMvc.perform(
             MockMvcRequestBuilders.get("/tracks")
             .contentType(MediaType.APPLICATION_JSON)
@@ -82,7 +82,7 @@ public class TrackControllerIntegrationTests {
     }
 
     @Test
-    public void testThatReadAllTracksReturnsListOfTracks() throws Exception {
+    void testThatReadAllTracksReturnsListOfTracks() throws Exception {
         TrackEntity trackEntity = TestDataUtil.createTestTrack1();
         trackEntity.setId(null);
 
@@ -104,7 +104,7 @@ public class TrackControllerIntegrationTests {
     }
 
     @Test
-    public void testThatReadOneTrackReturnsHttpStatus200WhenTrackExists() throws Exception {
+    void testThatReadOneTrackReturnsHttpStatus200WhenTrackExists() throws Exception {
         TrackEntity trackEntity = TestDataUtil.createTestTrack1();
         trackEntity.setId(null);
 
@@ -118,7 +118,7 @@ public class TrackControllerIntegrationTests {
     }
 
     @Test
-    public void testThatReadOneTrackReturnsHttpStatus404WhenTrackDoesNotExist() throws Exception {
+    void testThatReadOneTrackReturnsHttpStatus404WhenTrackDoesNotExist() throws Exception {
         mockMvc.perform(
             MockMvcRequestBuilders.get("/tracks/99")
             .contentType(MediaType.APPLICATION_JSON)
@@ -126,7 +126,7 @@ public class TrackControllerIntegrationTests {
     }
 
     @Test
-    public void testThatReadOneTrackReturnsTrackWhenTrackExists() throws Exception {
+    void testThatReadOneTrackReturnsTrackWhenTrackExists() throws Exception {
         TrackEntity trackEntity = TestDataUtil.createTestTrack1();
         trackEntity.setId(null);
 
@@ -148,7 +148,7 @@ public class TrackControllerIntegrationTests {
     }
 
     @Test
-    public void testThatUpdateFullTrackReturnsHttpStatus200WhenTrackExists() throws Exception {
+    void testThatUpdateFullTrackReturnsHttpStatus200WhenTrackExists() throws Exception {
         TrackEntity trackEntity = TestDataUtil.createTestTrack1();
         trackEntity.setId(null);
 
@@ -166,7 +166,7 @@ public class TrackControllerIntegrationTests {
     }
 
     @Test
-    public void testThatUpdateFullTrackReturnsHttpStatus404WhenTrackDoesNotExist() throws Exception {
+    void testThatUpdateFullTrackReturnsHttpStatus404WhenTrackDoesNotExist() throws Exception {
         TrackEntity trackEntity = TestDataUtil.createTestTrack1();
         trackEntity.setId(null);
 
@@ -181,7 +181,7 @@ public class TrackControllerIntegrationTests {
     }
 
     @Test
-    public void testThatUpdateFullTrackReturnsUpdatedTrackWhenTrackExists() throws Exception {
+    void testThatUpdateFullTrackReturnsUpdatedTrackWhenTrackExists() throws Exception {
         TrackEntity trackEntity = TestDataUtil.createTestTrack1();
         trackEntity.setId(null);
 
@@ -210,7 +210,7 @@ public class TrackControllerIntegrationTests {
     }
 
     @Test
-    public void testThatUpdatePartialTrackNameReturnsHttpStatus200WhenTrackExists() throws Exception {
+    void testThatUpdatePartialTrackNameReturnsHttpStatus200WhenTrackExists() throws Exception {
         TrackEntity trackEntity = TestDataUtil.createTestTrack1();
         trackEntity.setId(null);
 
@@ -229,7 +229,7 @@ public class TrackControllerIntegrationTests {
     }
 
     @Test
-    public void testThatUpdatePartialTrackNameReturnsUpdatedTrackWhenTrackExists() throws Exception {
+    void testThatUpdatePartialTrackNameReturnsUpdatedTrackWhenTrackExists() throws Exception {
         TrackEntity trackEntity = TestDataUtil.createTestTrack1();
         trackEntity.setId(null);
 
@@ -256,7 +256,7 @@ public class TrackControllerIntegrationTests {
     }
 
     @Test
-    public void testThatDeleteTrackReturnsHttpStatus204WhenTrackDoesNotExist() throws Exception {
+    void testThatDeleteTrackReturnsHttpStatus204WhenTrackDoesNotExist() throws Exception {
         mockMvc.perform(
             MockMvcRequestBuilders.delete("/tracks/1")
             .contentType(MediaType.APPLICATION_JSON)
@@ -264,7 +264,7 @@ public class TrackControllerIntegrationTests {
     }
 
     @Test
-    public void testThatDeleteTrackReturnsHttpStatus204WhenTrackExists() throws Exception {
+    void testThatDeleteTrackReturnsHttpStatus204WhenTrackExists() throws Exception {
         TrackEntity trackEntity = TestDataUtil.createTestTrack1();
         trackEntity.setId(null);
 

@@ -69,11 +69,12 @@ public class AreaPointDto {
         return this.id.equals(other.id)
             && this.latitude.equals(other.latitude)
             && this.longitude.equals(other.longitude)
-            && this.area == other.area;
+            && (this.area == null && other.area == null)
+               || (this.area != null && (this.area.equals(other.area)));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, latitude, longitude, area);
+        return Objects.hash(id, latitude, longitude);
     }
 }

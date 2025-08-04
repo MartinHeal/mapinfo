@@ -21,7 +21,7 @@ import au.com.heal.martin.mapinfo.services.AreaService;
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @AutoConfigureMockMvc
-public class AreaControllerIntegrationTests {
+class AreaControllerIntegrationTests {
 
     private MockMvc mockMvc;
     private AreaService areaService;
@@ -37,7 +37,7 @@ public class AreaControllerIntegrationTests {
     }
 
     @Test
-    public void testThatCreateAreaSuccessfullyReturnsHttpStatus201() throws Exception {
+    void testThatCreateAreaSuccessfullyReturnsHttpStatus201() throws Exception {
         AreaEntity areaEntity = TestDataUtil.createTestArea1();
         areaEntity.setId(null);
         String areaJson = objectMapper.writeValueAsString(areaEntity);
@@ -52,7 +52,7 @@ public class AreaControllerIntegrationTests {
     }
 
     @Test
-    public void testThatCreateAreaSuccessfullyReturnsSavedArea() throws Exception {
+    void testThatCreateAreaSuccessfullyReturnsSavedArea() throws Exception {
         AreaEntity areaEntity = TestDataUtil.createTestArea1();
         areaEntity.setId(null);
 
@@ -74,7 +74,7 @@ public class AreaControllerIntegrationTests {
     }
 
     @Test
-    public void testThatReadAllAreasReturnsHttpStatus200() throws Exception {
+    void testThatReadAllAreasReturnsHttpStatus200() throws Exception {
         mockMvc.perform(
             MockMvcRequestBuilders.get("/areas")
             .contentType(MediaType.APPLICATION_JSON)
@@ -82,7 +82,7 @@ public class AreaControllerIntegrationTests {
     }
 
     @Test
-    public void testThatReadAllAreasReturnsListOfAreas() throws Exception {
+    void testThatReadAllAreasReturnsListOfAreas() throws Exception {
         AreaEntity areaEntity = TestDataUtil.createTestArea1();
         areaEntity.setId(null);
 
@@ -104,7 +104,7 @@ public class AreaControllerIntegrationTests {
     }
 
     @Test
-    public void testThatReadOneAreaReturnsHttpStatus200WhenAreaExists() throws Exception {
+    void testThatReadOneAreaReturnsHttpStatus200WhenAreaExists() throws Exception {
         AreaEntity areaEntity = TestDataUtil.createTestArea1();
         areaEntity.setId(null);
 
@@ -118,7 +118,7 @@ public class AreaControllerIntegrationTests {
     }
 
     @Test
-    public void testThatReadOneAreaReturnsHttpStatus404WhenAreaDoesNotExist() throws Exception {
+    void testThatReadOneAreaReturnsHttpStatus404WhenAreaDoesNotExist() throws Exception {
         mockMvc.perform(
             MockMvcRequestBuilders.get("/areas/99")
             .contentType(MediaType.APPLICATION_JSON)
@@ -126,7 +126,7 @@ public class AreaControllerIntegrationTests {
     }
 
     @Test
-    public void testThatReadOneAreaReturnsAreaWhenAreaExists() throws Exception {
+    void testThatReadOneAreaReturnsAreaWhenAreaExists() throws Exception {
         AreaEntity areaEntity = TestDataUtil.createTestArea1();
         areaEntity.setId(null);
 
@@ -148,7 +148,7 @@ public class AreaControllerIntegrationTests {
     }
 
     @Test
-    public void testThatUpdateFullAreaReturnsHttpStatus200WhenAreaExists() throws Exception {
+    void testThatUpdateFullAreaReturnsHttpStatus200WhenAreaExists() throws Exception {
         AreaEntity areaEntity = TestDataUtil.createTestArea1();
         areaEntity.setId(null);
 
@@ -166,7 +166,7 @@ public class AreaControllerIntegrationTests {
     }
 
     @Test
-    public void testThatUpdateFullAreaReturnsHttpStatus404WhenAreaDoesNotExist() throws Exception {
+    void testThatUpdateFullAreaReturnsHttpStatus404WhenAreaDoesNotExist() throws Exception {
         AreaEntity areaEntity = TestDataUtil.createTestArea1();
         areaEntity.setId(null);
 
@@ -181,7 +181,7 @@ public class AreaControllerIntegrationTests {
     }
 
     @Test
-    public void testThatUpdateFullAreaReturnsUpdatedAreaWhenAreaExists() throws Exception {
+    void testThatUpdateFullAreaReturnsUpdatedAreaWhenAreaExists() throws Exception {
         AreaEntity areaEntity = TestDataUtil.createTestArea1();
         areaEntity.setId(null);
 
@@ -210,7 +210,7 @@ public class AreaControllerIntegrationTests {
     }
 
     @Test
-    public void testThatUpdatePartialAreaNameReturnsHttpStatus200WhenAreaExists() throws Exception {
+    void testThatUpdatePartialAreaNameReturnsHttpStatus200WhenAreaExists() throws Exception {
         AreaEntity areaEntity = TestDataUtil.createTestArea1();
         areaEntity.setId(null);
 
@@ -229,7 +229,7 @@ public class AreaControllerIntegrationTests {
     }
 
     @Test
-    public void testThatUpdatePartialAreaNameReturnsUpdatedAreaWhenAreaExists() throws Exception {
+    void testThatUpdatePartialAreaNameReturnsUpdatedAreaWhenAreaExists() throws Exception {
         AreaEntity areaEntity = TestDataUtil.createTestArea1();
         areaEntity.setId(null);
 
@@ -256,7 +256,7 @@ public class AreaControllerIntegrationTests {
     }
 
     @Test
-    public void testThatDeleteAreaReturnsHttpStatus204WhenAreaDoesNotExist() throws Exception {
+    void testThatDeleteAreaReturnsHttpStatus204WhenAreaDoesNotExist() throws Exception {
         mockMvc.perform(
             MockMvcRequestBuilders.delete("/areas/1")
             .contentType(MediaType.APPLICATION_JSON)
@@ -264,7 +264,7 @@ public class AreaControllerIntegrationTests {
     }
 
     @Test
-    public void testThatDeleteAreaReturnsHttpStatus204WhenAreaExists() throws Exception {
+    void testThatDeleteAreaReturnsHttpStatus204WhenAreaExists() throws Exception {
         AreaEntity areaEntity = TestDataUtil.createTestArea1();
         areaEntity.setId(null);
 

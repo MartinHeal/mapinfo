@@ -35,7 +35,7 @@ public class LocationController {
     public ResponseEntity<LocationDto> createLocation(@RequestBody LocationDto location) {
         log.info("Create location.");
 
-        return new ResponseEntity<LocationDto>(locationService.createLocation(location), HttpStatus.CREATED);
+        return new ResponseEntity<>(locationService.createLocation(location), HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/locations/{id}")
@@ -44,9 +44,7 @@ public class LocationController {
 
         Optional<LocationDto> foundLocation = locationService.readOneLocation(id);
 
-        return foundLocation.map(locationDto -> {
-                return new ResponseEntity<>(locationDto, HttpStatus.OK);
-            })
+        return foundLocation.map(locationDto -> new ResponseEntity<>(locationDto, HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 

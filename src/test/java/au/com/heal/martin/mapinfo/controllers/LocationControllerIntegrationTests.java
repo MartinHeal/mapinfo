@@ -21,7 +21,7 @@ import au.com.heal.martin.mapinfo.services.LocationService;
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @AutoConfigureMockMvc
-public class LocationControllerIntegrationTests {
+class LocationControllerIntegrationTests {
 
     private MockMvc mockMvc;
     private LocationService locationService;
@@ -37,7 +37,7 @@ public class LocationControllerIntegrationTests {
     }
 
     @Test
-    public void testThatCreateLocationSuccessfullyReturnsHttpStatus201() throws Exception {
+    void testThatCreateLocationSuccessfullyReturnsHttpStatus201() throws Exception {
         LocationEntity locationEntity = TestDataUtil.createTestLocation1();
         locationEntity.setId(null);
         String locationJson = objectMapper.writeValueAsString(locationEntity);
@@ -52,7 +52,7 @@ public class LocationControllerIntegrationTests {
     }
 
     @Test
-    public void testThatCreateLocationSuccessfullyReturnsSavedLocation() throws Exception {
+    void testThatCreateLocationSuccessfullyReturnsSavedLocation() throws Exception {
         LocationEntity locationEntity = TestDataUtil.createTestLocation1();
         locationEntity.setId(null);
 
@@ -78,7 +78,7 @@ public class LocationControllerIntegrationTests {
     }
 
     @Test
-    public void testThatReadAllLocationsReturnsHttpStatus200() throws Exception {
+    void testThatReadAllLocationsReturnsHttpStatus200() throws Exception {
         mockMvc.perform(
             MockMvcRequestBuilders.get("/locations")
             .contentType(MediaType.APPLICATION_JSON)
@@ -86,7 +86,7 @@ public class LocationControllerIntegrationTests {
     }
 
     @Test
-    public void testThatReadAllLocationsReturnsListOfLocations() throws Exception {
+    void testThatReadAllLocationsReturnsListOfLocations() throws Exception {
         LocationEntity locationEntity = TestDataUtil.createTestLocation1();
         locationEntity.setId(null);
 
@@ -112,7 +112,7 @@ public class LocationControllerIntegrationTests {
     }
 
     @Test
-    public void testThatReadOneLocationReturnsHttpStatus200WhenLocationExists() throws Exception {
+    void testThatReadOneLocationReturnsHttpStatus200WhenLocationExists() throws Exception {
         LocationEntity locationEntity = TestDataUtil.createTestLocation1();
         locationEntity.setId(null);
 
@@ -126,7 +126,7 @@ public class LocationControllerIntegrationTests {
     }
 
     @Test
-    public void testThatReadOneLocationReturnsHttpStatus404WhenLocationDoesNotExist() throws Exception {
+    void testThatReadOneLocationReturnsHttpStatus404WhenLocationDoesNotExist() throws Exception {
         mockMvc.perform(
             MockMvcRequestBuilders.get("/locations/99")
             .contentType(MediaType.APPLICATION_JSON)
@@ -134,7 +134,7 @@ public class LocationControllerIntegrationTests {
     }
 
     @Test
-    public void testThatReadOneLocationReturnsLocationWhenLocationExists() throws Exception {
+    void testThatReadOneLocationReturnsLocationWhenLocationExists() throws Exception {
         LocationEntity locationEntity = TestDataUtil.createTestLocation1();
         locationEntity.setId(null);
 
@@ -160,7 +160,7 @@ public class LocationControllerIntegrationTests {
     }
 
     @Test
-    public void testThatUpdateFullLocationReturnsHttpStatus200WhenLocationExists() throws Exception {
+    void testThatUpdateFullLocationReturnsHttpStatus200WhenLocationExists() throws Exception {
         LocationEntity locationEntity = TestDataUtil.createTestLocation1();
         locationEntity.setId(null);
 
@@ -178,7 +178,7 @@ public class LocationControllerIntegrationTests {
     }
 
     @Test
-    public void testThatUpdateFullLocationReturnsHttpStatus404WhenLocationDoesNotExist() throws Exception {
+    void testThatUpdateFullLocationReturnsHttpStatus404WhenLocationDoesNotExist() throws Exception {
         LocationEntity locationEntity = TestDataUtil.createTestLocation1();
         locationEntity.setId(null);
 
@@ -193,7 +193,7 @@ public class LocationControllerIntegrationTests {
     }
 
     @Test
-    public void testThatUpdateFullLocationReturnsUpdatedLocationWhenLocationExists() throws Exception {
+    void testThatUpdateFullLocationReturnsUpdatedLocationWhenLocationExists() throws Exception {
         LocationEntity locationEntity = TestDataUtil.createTestLocation1();
         locationEntity.setId(null);
 
@@ -226,7 +226,7 @@ public class LocationControllerIntegrationTests {
     }
 
     @Test
-    public void testThatUpdatePartialLocationNameReturnsHttpStatus200WhenLocationExists() throws Exception {
+    void testThatUpdatePartialLocationNameReturnsHttpStatus200WhenLocationExists() throws Exception {
         LocationEntity locationEntity = TestDataUtil.createTestLocation1();
         locationEntity.setId(null);
 
@@ -245,7 +245,7 @@ public class LocationControllerIntegrationTests {
     }
 
     @Test
-    public void testThatUpdatePartialLocationNameReturnsUpdatedLocationWhenLocationExists() throws Exception {
+    void testThatUpdatePartialLocationNameReturnsUpdatedLocationWhenLocationExists() throws Exception {
         LocationEntity locationEntity = TestDataUtil.createTestLocation1();
         locationEntity.setId(null);
 
@@ -276,7 +276,7 @@ public class LocationControllerIntegrationTests {
     }
 
     @Test
-    public void testThatDeleteLocationReturnsHttpStatus204WhenLocationDoesNotExist() throws Exception {
+    void testThatDeleteLocationReturnsHttpStatus204WhenLocationDoesNotExist() throws Exception {
         mockMvc.perform(
             MockMvcRequestBuilders.delete("/locations/1")
             .contentType(MediaType.APPLICATION_JSON)
@@ -284,7 +284,7 @@ public class LocationControllerIntegrationTests {
     }
 
     @Test
-    public void testThatDeleteLocationReturnsHttpStatus204WhenLocationExists() throws Exception {
+    void testThatDeleteLocationReturnsHttpStatus204WhenLocationExists() throws Exception {
         LocationEntity locationEntity = TestDataUtil.createTestLocation1();
         locationEntity.setId(null);
 

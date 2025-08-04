@@ -5,8 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,7 @@ import au.com.heal.martin.mapinfo.domain.entities.TrackPointEntity;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class TrackRepositoryIntegrationTests {
+class TrackRepositoryIntegrationTests {
 
     private TrackRepository trackRepository;
 
@@ -29,7 +27,7 @@ public class TrackRepositoryIntegrationTests {
     }
 
     @Test
-    public void testThatTrackCanBeCreatedAndRetrieved() {
+    void testThatTrackCanBeCreatedAndRetrieved() {
         TrackEntity track = TestDataUtil.createTestTrack1();
 
         trackRepository.save(track);
@@ -39,12 +37,11 @@ public class TrackRepositoryIntegrationTests {
 
         assertThat(result.get().getName()).isEqualTo(track.getName());
         assertThat(result.get().getDescription()).isEqualTo(track.getDescription());
-
-        assertThat(result.get().getPoints().equals(track.getPoints()));
+        assertThat(result.get().getPoints()).hasSize(track.getPoints().size());
     }
 
     @Test
-    public void testThatMultipleTracksCanBeCreatedAndRetrieved() {
+    void testThatMultipleTracksCanBeCreatedAndRetrieved() {
         TrackEntity track1 = TestDataUtil.createTestTrack1();
         TrackEntity track2 = TestDataUtil.createTestTrack2();
         TrackEntity track3 = TestDataUtil.createTestTrack3();
@@ -55,12 +52,13 @@ public class TrackRepositoryIntegrationTests {
         Iterable<TrackEntity> result = trackRepository.findAll();
 
         assertThat(result).hasSize(3);
-        List<TrackEntity> resultTracks = StreamSupport.stream(result.spliterator(), false).collect(Collectors.toList());
-        assertThat(resultTracks.equals(List.of(track1, track2, track3)));
+
+        // Also need to check that the result contains the 3 tracks.
+        // Look at the TrackEntity & TrackPointEntity equals() & hashCode().
     }
 
     @Test
-    public void testThatTrackCanBeUpdated() {
+    void testThatTrackCanBeUpdated() {
         TrackEntity track = TestDataUtil.createTestTrack1();
 
         trackRepository.save(track);
@@ -68,9 +66,12 @@ public class TrackRepositoryIntegrationTests {
         track.setName("New Name");
         track.setDescription("New Description");
 
-        List<TrackPointEntity> newPoints = new ArrayList<>();
-        newPoints.add(TestDataUtil.createTestTrackPoint(-37.000000000, 144.000000000));
-        newPoints.add(TestDataUtil.createTestTrackPoint(-37.500000000, 144.500000000));
+        TrackPointEntity newTrackPoint1 = TestDataUtil.createTestTrackPoint(-37.000000000, 144.000000000);
+        newTrackPoint1.setTrack(track);
+        TrackPointEntity newTrackPoint2 = TestDataUtil.createTestTrackPoint(-37.500000000, 144.500000000);
+        newTrackPoint2.setTrack(track);
+
+        List<TrackPointEntity> newPoints = new ArrayList<>(List.of(newTrackPoint1, newTrackPoint2));
         track.setPoints(newPoints);
 
         trackRepository.save(track);
@@ -82,11 +83,14 @@ public class TrackRepositoryIntegrationTests {
         assertThat(result.get().getName()).isEqualTo(track.getName());
         assertThat(result.get().getDescription()).isEqualTo(track.getDescription());
 
-        assertThat(result.get().getPoints().equals(track.getPoints()));
+        assertThat(result.get().getPoints()).hasSize(track.getPoints().size());
+
+        // Also need to check that the result points contains the 2 new points.
+        // Look at the TrackEntity & TrackPointEntity equals() & hashCode().
     }
 
     @Test
-    public void testThatTrackCanBeDeleted() {
+    void testThatTrackCanBeDeleted() {
         TrackEntity track = TestDataUtil.createTestTrack1();
 
         trackRepository.save(track);

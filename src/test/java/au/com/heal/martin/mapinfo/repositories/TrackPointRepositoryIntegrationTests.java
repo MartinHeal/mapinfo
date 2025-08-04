@@ -14,7 +14,7 @@ import au.com.heal.martin.mapinfo.domain.entities.TrackPointEntity;
 
 @SpringBootTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class TrackPointRepositoryIntegrationTests {
+class TrackPointRepositoryIntegrationTests {
 
     private TrackPointRepository trackPointRepository;
 
@@ -24,7 +24,7 @@ public class TrackPointRepositoryIntegrationTests {
     }
 
     @Test
-    public void testThatPointCanBeCreatedAndRetrieved() {
+    void testThatPointCanBeCreatedAndRetrieved() {
         TrackPointEntity point = TestDataUtil.createTestTrackPoint(-37.814233512, 144.963138807);
 
         trackPointRepository.save(point);
@@ -37,7 +37,7 @@ public class TrackPointRepositoryIntegrationTests {
     }
 
     @Test
-    public void testThatMultiplePointsCanBeCreatedAndRetrieved() {
+    void testThatMultiplePointsCanBeCreatedAndRetrieved() {
         TrackPointEntity point1 = TestDataUtil.createTestTrackPoint(-37.820640807, 144.941401533);
         TrackPointEntity point2 = TestDataUtil.createTestTrackPoint(-37.821407644, 144.945846615);
         TrackPointEntity point3 = TestDataUtil.createTestTrackPoint(-37.813321828, 144.973760363);
@@ -47,12 +47,11 @@ public class TrackPointRepositoryIntegrationTests {
         trackPointRepository.save(point3);
         Iterable<TrackPointEntity> result = trackPointRepository.findAll();
 
-        assertThat(result).hasSize(3);
-        assertThat(result).containsExactly(point1, point2, point3);
+        assertThat(result).hasSize(3).containsExactly(point1, point2, point3);
     }
 
     @Test
-    public void testThatPointCanBeUpdated() {
+    void testThatPointCanBeUpdated() {
         TrackPointEntity point = TestDataUtil.createTestTrackPoint(-37.814233512, 144.963138807);
 
         trackPointRepository.save(point);
@@ -71,7 +70,7 @@ public class TrackPointRepositoryIntegrationTests {
     }
 
     @Test
-    public void testThatPointCanBeDeleted() {
+    void testThatPointCanBeDeleted() {
         TrackPointEntity point = TestDataUtil.createTestTrackPoint(-37.814233512, 144.963138807);
 
         trackPointRepository.save(point);
