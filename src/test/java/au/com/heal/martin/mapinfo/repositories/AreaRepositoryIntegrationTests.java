@@ -46,15 +46,12 @@ class AreaRepositoryIntegrationTests {
         AreaEntity area2 = TestDataUtil.createTestArea2();
         AreaEntity area3 = TestDataUtil.createTestArea3();
 
-        areaRepository.save(area1);
-        areaRepository.save(area2);
-        areaRepository.save(area3);
+        AreaEntity savedArea1 = areaRepository.save(area1);
+        AreaEntity savedArea2 = areaRepository.save(area2);
+        AreaEntity savedArea3 = areaRepository.save(area3);
         Iterable<AreaEntity> result = areaRepository.findAll();
 
-        assertThat(result).hasSize(3);
-
-        // Also need to check that the result contains the 3 areas.
-        // Look at the AreaEntity & AreaPointEntity equals() & hashCode().
+        assertThat(result).hasSize(3).containsExactly(savedArea1, savedArea2, savedArea3);
     }
 
     @Test
@@ -78,7 +75,7 @@ class AreaRepositoryIntegrationTests {
         List<AreaPointEntity> newPoints = new ArrayList<>(List.of(newAreaPoint1, newAreaPoint2, newAreaPoint3, newAreaPoint4));
         area.setPoints(newPoints);
 
-        areaRepository.save(area);
+        AreaEntity savedArea = areaRepository.save(area);
 
         Optional<AreaEntity> result = areaRepository.findById(area.getId());
 
@@ -87,10 +84,8 @@ class AreaRepositoryIntegrationTests {
         assertThat(result.get().getName()).isEqualTo(area.getName());
         assertThat(result.get().getDescription()).isEqualTo(area.getDescription());
 
-        assertThat(result.get().getPoints()).hasSize(area.getPoints().size());
-
-        // Also need to check that the result points contains the 4 new points.
-        // Look at the AreaEntity & AreaPointEntity equals() & hashCode().
+        assertThat(result.get().getPoints()).hasSize(area.getPoints().size())
+            .containsAll(savedArea.getPoints());
     }
 
     @Test

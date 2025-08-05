@@ -46,15 +46,12 @@ class TrackRepositoryIntegrationTests {
         TrackEntity track2 = TestDataUtil.createTestTrack2();
         TrackEntity track3 = TestDataUtil.createTestTrack3();
 
-        trackRepository.save(track1);
-        trackRepository.save(track2);
-        trackRepository.save(track3);
+        TrackEntity savedTrack1 = trackRepository.save(track1);
+        TrackEntity savedTrack2 = trackRepository.save(track2);
+        TrackEntity savedTrack3 = trackRepository.save(track3);
         Iterable<TrackEntity> result = trackRepository.findAll();
 
-        assertThat(result).hasSize(3);
-
-        // Also need to check that the result contains the 3 tracks.
-        // Look at the TrackEntity & TrackPointEntity equals() & hashCode().
+        assertThat(result).hasSize(3).containsExactly(savedTrack1, savedTrack2, savedTrack3);
     }
 
     @Test
@@ -74,7 +71,7 @@ class TrackRepositoryIntegrationTests {
         List<TrackPointEntity> newPoints = new ArrayList<>(List.of(newTrackPoint1, newTrackPoint2));
         track.setPoints(newPoints);
 
-        trackRepository.save(track);
+        TrackEntity savedTrack = trackRepository.save(track);
 
         Optional<TrackEntity> result = trackRepository.findById(track.getId());
 
@@ -83,10 +80,8 @@ class TrackRepositoryIntegrationTests {
         assertThat(result.get().getName()).isEqualTo(track.getName());
         assertThat(result.get().getDescription()).isEqualTo(track.getDescription());
 
-        assertThat(result.get().getPoints()).hasSize(track.getPoints().size());
-
-        // Also need to check that the result points contains the 2 new points.
-        // Look at the TrackEntity & TrackPointEntity equals() & hashCode().
+        assertThat(result.get().getPoints()).hasSize(track.getPoints().size())
+            .containsAll(savedTrack.getPoints());
     }
 
     @Test

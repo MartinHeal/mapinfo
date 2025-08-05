@@ -42,12 +42,12 @@ class AreaPointRepositoryIntegrationTests {
         AreaPointEntity point2 = TestDataUtil.createTestAreaPoint(-37.821407644, 144.945846615);
         AreaPointEntity point3 = TestDataUtil.createTestAreaPoint(-37.813321828, 144.973760363);
 
-        areaPointRepository.save(point1);
-        areaPointRepository.save(point2);
-        areaPointRepository.save(point3);
+        AreaPointEntity savedPoint1 = areaPointRepository.save(point1);
+        AreaPointEntity savedPoint2 = areaPointRepository.save(point2);
+        AreaPointEntity savedPoint3 = areaPointRepository.save(point3);
         Iterable<AreaPointEntity> result = areaPointRepository.findAll();
 
-        assertThat(result).hasSize(3).containsExactly(point1, point2, point3);
+        assertThat(result).hasSize(3).containsExactly(savedPoint1, savedPoint2, savedPoint3);
     }
 
     @Test

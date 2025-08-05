@@ -42,12 +42,12 @@ class LocationPointRepositoryIntegrationTests {
         LocationPointEntity point2 = TestDataUtil.createTestLocationPoint(-37.821407644, 144.945846615);
         LocationPointEntity point3 = TestDataUtil.createTestLocationPoint(-37.813321828, 144.973760363);
 
-        locationPointRepository.save(point1);
-        locationPointRepository.save(point2);
-        locationPointRepository.save(point3);
+        LocationPointEntity savedPoint1 = locationPointRepository.save(point1);
+        LocationPointEntity savedPoint2 = locationPointRepository.save(point2);
+        LocationPointEntity savedPoint3 = locationPointRepository.save(point3);
         Iterable<LocationPointEntity> result = locationPointRepository.findAll();
 
-        assertThat(result).hasSize(3).containsExactly(point1, point2, point3);
+        assertThat(result).hasSize(3).containsExactly(savedPoint1, savedPoint2, savedPoint3);
     }
 
     @Test

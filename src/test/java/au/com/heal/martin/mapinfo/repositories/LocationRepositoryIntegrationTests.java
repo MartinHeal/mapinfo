@@ -45,12 +45,12 @@ class LocationRepositoryIntegrationTests {
         LocationEntity location2 = TestDataUtil.createTestLocation2();
         LocationEntity location3 = TestDataUtil.createTestLocation3();
 
-        locationRepository.save(location1);
-        locationRepository.save(location2);
-        locationRepository.save(location3);
+        LocationEntity savedLocation1 = locationRepository.save(location1);
+        LocationEntity savedLocation2 = locationRepository.save(location2);
+        LocationEntity savedLocation3 = locationRepository.save(location3);
         Iterable<LocationEntity> result = locationRepository.findAll();
 
-        assertThat(result).hasSize(3).containsExactly(location1, location2, location3);
+        assertThat(result).hasSize(3).containsExactly(savedLocation1, savedLocation2, savedLocation3);
     }
 
     @Test

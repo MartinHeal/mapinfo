@@ -42,12 +42,12 @@ class TrackPointRepositoryIntegrationTests {
         TrackPointEntity point2 = TestDataUtil.createTestTrackPoint(-37.821407644, 144.945846615);
         TrackPointEntity point3 = TestDataUtil.createTestTrackPoint(-37.813321828, 144.973760363);
 
-        trackPointRepository.save(point1);
-        trackPointRepository.save(point2);
-        trackPointRepository.save(point3);
+        TrackPointEntity savedPoint1 = trackPointRepository.save(point1);
+        TrackPointEntity savedPoint2 = trackPointRepository.save(point2);
+        TrackPointEntity savedPoint3 = trackPointRepository.save(point3);
         Iterable<TrackPointEntity> result = trackPointRepository.findAll();
 
-        assertThat(result).hasSize(3).containsExactly(point1, point2, point3);
+        assertThat(result).hasSize(3).containsExactly(savedPoint1, savedPoint2, savedPoint3);
     }
 
     @Test
