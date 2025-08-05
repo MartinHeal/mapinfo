@@ -81,9 +81,7 @@ public class AreaPointEntity {
 
         return this.id.equals(other.id)
             && this.latitude.equals(other.latitude)
-            && this.longitude.equals(other.longitude)
-            && (this.area == null && other.area == null)
-               || (this.area != null && (this.area.equals(other.area)));
+            && this.longitude.equals(other.longitude);
     }
 
     @Override

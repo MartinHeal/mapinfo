@@ -68,9 +68,7 @@ public class TrackPointDto {
 
         return this.id.equals(other.id)
             && this.latitude.equals(other.latitude)
-            && this.longitude.equals(other.longitude)
-            && (this.track == null && other.track == null)
-               || (this.track != null && (this.track.equals(other.track)));
+            && this.longitude.equals(other.longitude);
     }
 
     @Override

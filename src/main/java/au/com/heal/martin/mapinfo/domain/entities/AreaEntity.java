@@ -83,12 +83,11 @@ public class AreaEntity {
 
         return this.id.equals(other.id)
             && this.name.equals(other.name)
-            && this.description.equals(other.description)
-            && this.points.equals(other.points);
+            && this.description.equals(other.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, points);
+        return Objects.hash(id, name, description);
     }
 }

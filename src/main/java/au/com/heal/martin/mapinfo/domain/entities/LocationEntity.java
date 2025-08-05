@@ -80,13 +80,11 @@ public class LocationEntity {
 
         return this.id.equals(other.id)
             && this.name.equals(other.name)
-            && this.description.equals(other.description)
-            && ((this.point == null && other.point == null)
-               || (this.point != null && this.point.equals(other.point)));
+            && this.description.equals(other.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, point);
+        return Objects.hash(id, name, description);
     }
 }
